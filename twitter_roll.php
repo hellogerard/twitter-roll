@@ -7,6 +7,7 @@ require('TwitterOAuth.php');
 
 class TwitterListMembers
 {
+    // The following four tokens can usually be found within http://dev.twitter.com/apps
     const CONSUMER_KEY = ''; // your Twitter app consumer key
     const CONSUMER_SECRET = ''; // you Twitter app consumer secret
     const OAUTH_TOKEN = ''; // your Twitter OAuth token for this app

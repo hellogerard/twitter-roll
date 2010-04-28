@@ -14,12 +14,11 @@ This code includes the TwitterOAuth library (version 0.1)
 Setup
 =====
 
-1. Create a Twitter app at <http://twitter.com/apps>. Record the app consumer
-   tokens.
-2. Authorize the app for your (or someone's) Twitter account. Record the
-   resulting OAuth tokens.
-3. Create a Twitter list.
-4. Configure the script with your data.
+1. Create a Twitter app at <http://dev.twitter.com/apps/new>.
+2. Record the app `consumer tokens` on the application detail page.
+3. Record your `OAuth tokens` on the application detail page. (Or you can get someone to authorize the app and record theirs.)
+4. Create a Twitter list.
+5. Configure the script with the four tokens and the Twitter list name.
 
 
 _see LICENSE for copyright and license info_
