@@ -7,6 +7,8 @@ picture, bio, and last tweet.
 
 Inspired by <http://theskiff.org/crew/>.
 
+You can see it in action at <http://www.cincycoworks.com/members/>
+
 This code includes the TwitterOAuth library (version 0.1)
 <<http://github.com/abraham/twitteroauth>> for PHP written by Abraham Williams.
 
