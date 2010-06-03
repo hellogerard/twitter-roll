@@ -2,6 +2,10 @@ Twitter Roll
 ============
 
 
+**UPDATE**: jTweetsAnywhere <<http://thomasbillenstein.com/jTweetsAnywhere/>>
+has somewhat rendered this PHP solution unneccessary. But it was fun while it
+lasted. :)
+
 A small PHP script that displays the members of a public Twitter list with their
 picture, bio, and last tweet.
 
