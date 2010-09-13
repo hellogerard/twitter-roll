@@ -68,10 +68,24 @@ class TwitterListMembers
         }
         else 
         {
-            $howlong = round((float) ($delta / 86400.0)) . ' days ago';
+            $days = round((float) ($delta / 86400.0));
+
+            $howlong = "$days days ago";
+            if ($days > 7)
+            {
+                $howlong = date('F j \a\t g:ia', $then);
+            }
         }
 
         return $howlong;
+    }
+
+    public static function linkify($text)
+    {
+        $text = preg_replace('?(http://[^\s]+)?', '<a href="$1">$1</a>', $text);
+        $text = preg_replace('/@([a-zA-Z0-9_]+)/', '@<a href="http://twitter.com/$1">$1</a>', $text);
+
+        return $text;
     }
 
     public function render($members)
@@ -82,22 +96,21 @@ class TwitterListMembers
 
             echo <<<EOF
         <div id="twitter_roll" style="font-family: Arial; font-size: 8pt; width: 50%;">
-            <h3>{$member->name} ({$member->screen_name})</h3>
             <img src="{$member->profile_image_url}" style="float: left; margin-right: 10px;">
-            <p>{$member->description}</p>
+            <a href="http://twitter.com/{$member->screen_name}" rel="me"><strong>{$member->name} </strong></a><br/>
+            {$member->description}
 EOF;
 
-            $status = "<span> {$member->status->text} </span> <a style=\"font-size: 85%;\" href=\"http://twitter.com/{$member->screen_name}/statuses/{$member->status->id}\"> $howLongAgo </a>";
+            $status  = "<span> " . self::linkify($member->status->text) . " </span>"
+                    . "<a style=\"font-size: 75%;\" href=\"http://twitter.com/{$member->screen_name}/statuses/{$member->status->id}\"> $howLongAgo </a>";
             if ($member->protected)
             {
                 $status = "<em> This person has protected their tweets. </em>";
             }
 
             echo <<<EOF
-            <ul style="margin-left: 50px;">
-                <li> $status </li>
-            </ul>        
-            <p> <a href="http://twitter.com/{$member->screen_name}" rel="me"> Follow {$member->screen_name} on Twitter</a> </p>
+            <div style="clear: both;"></div>
+            <a href="http://twitter.com/{$member->screen_name}" rel="me"> {$member->screen_name}</a> $status
         </div>
 EOF;
         }
@@ -112,6 +125,7 @@ EOF;
 
     <p>
     <?php
+        date_default_timezone_set('America/New_York');
         $list = new TwitterListMembers();
 
         try
