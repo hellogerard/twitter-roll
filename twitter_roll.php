@@ -102,7 +102,7 @@ class TwitterListMembers
 EOF;
 
             $status  = "<span> " . self::linkify($member->status->text) . " </span>"
-                    . "<a style=\"font-size: 75%;\" href=\"http://twitter.com/{$member->screen_name}/statuses/{$member->status->id}\"> $howLongAgo </a>";
+                    . "<a style=\"font-size: 75%;\" href=\"http://twitter.com/{$member->screen_name}/statuses/{$member->status->id_str}\"> $howLongAgo </a>";
             if ($member->protected)
             {
                 $status = "<em> This person has protected their tweets. </em>";
