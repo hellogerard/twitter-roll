@@ -12,9 +12,10 @@ class TwitterListMembers
     const CONSUMER_SECRET = ''; // you Twitter app consumer secret
     const OAUTH_TOKEN = ''; // your Twitter OAuth token for this app
     const OAUTH_SECRET = ''; // your Twitter OAuth secret for this app
-    const TWITTER_LIST = 'yourtwittername/yourtwitterlist'; // Twitter list to display
+    const TWITTER_LIST = 'yourtwitterlist'; // Twitter list to display
+    const TWITTER_OWNER = 'yourtwittername'; // Twitter user who owns list
 
-    public function get($list)
+    public function get($owner, $list)
     {
         // Unfortunately, the GET LIST MEMBERS API requires authentication for
         // some reason, even when the same data is available on the website. So
@@ -23,7 +24,10 @@ class TwitterListMembers
         // permissions to reduce the chance of tomfoolery.
 
         $oauth = new TwitterOAuth(self::CONSUMER_KEY, self::CONSUMER_SECRET, self::OAUTH_TOKEN, self::OAUTH_SECRET);
-        $response = $oauth->OAuthRequest("http://api.twitter.com/1/$list/members.json", array(), 'GET');
+        $response = $oauth->OAuthRequest("https://api.twitter.com/1.1/lists/members.json", array(
+            'slug' => $list,
+            'owner_screen_name' => $owner,
+        ), 'GET');
         $members = json_decode($response);
 
         usort($members->users, array(self, 'lastUpdated'));
@@ -130,7 +134,7 @@ EOF;
 
         try
         {
-            $members = $list->get(TwitterListMembers::TWITTER_LIST);
+            $members = $list->get(TwitterListMembers::TWITTER_OWNER, TwitterListMembers::TWITTER_LIST);
             $list->render($members);
         }
         catch (Exception $e)
